@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+env/
+
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+.mvn/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.zip
