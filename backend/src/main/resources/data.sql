@@ -40,8 +40,3 @@ INSERT INTO drivers (name, phone, status) VALUES
 ('Driver1', '9999999991', 'AVAILABLE'),
 ('Driver2', '9999999992', 'AVAILABLE'),
 ('Driver3', '9999999993', 'AVAILABLE');
-
---user
-INSERT INTO users (name, email) VALUES
-('User1', 'user1@test.com'),
-('User2', 'user2@test.com');
