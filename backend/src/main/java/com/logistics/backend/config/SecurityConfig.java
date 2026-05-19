@@ -24,8 +24,7 @@ public class SecurityConfig {
                 32,
                 1,
                 65536,
-                3
-        );
+                3);
     }
 
     @Bean
@@ -34,9 +33,21 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
-                )
+
+                        // Public
+                        .requestMatchers("/auth/**").permitAll()
+
+                        // USER
+                        .requestMatchers("/shipments/**").hasAnyRole("USER", "ADMIN")
+
+                        // MANAGER
+                        .requestMatchers("/drivers/**").hasAnyRole("MANAGER", "ADMIN")
+
+                        // ADMIN
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        // fallback
+                        .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(form -> form.disable());
