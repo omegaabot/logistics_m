@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Shipment from "../components/Shipment/Shipment";
 
 function UserPage() {
   useEffect(() => {
@@ -9,7 +10,14 @@ function UserPage() {
     }
   }, []);
 
-  return <h2>User Dashboard</h2>;
+  return (
+    <div>
+      <h2>User Dashboard</h2>
+
+      {/* 🔥 Show shipment component */}
+      <Shipment />
+    </div>
+  );
 }
 
 export default UserPage;

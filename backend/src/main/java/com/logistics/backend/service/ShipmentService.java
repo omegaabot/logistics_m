@@ -5,13 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.logistics.backend.model.Shipment;
 import com.logistics.backend.model.City;
 import com.logistics.backend.model.Driver;
+import com.logistics.backend.model.User;
+
 import com.logistics.backend.repository.CityRepository;
 import com.logistics.backend.repository.DriverRepository;
 import com.logistics.backend.repository.ShipmentRepository;
+import com.logistics.backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +35,22 @@ public class ShipmentService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    // 🔐 CREATE SHIPMENT (with user from JWT)
     public Shipment createShipment(Shipment shipment) {
+
+        // Get logged-in user from JWT
+        String email = (String) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        shipment.setUser(user);
 
         String url = "http://localhost:8001/route";
 
@@ -71,15 +90,34 @@ public class ShipmentService {
         return shipmentRepository.save(shipment);
     }
 
-    // ✅ FIX 1
+    // 🔥 IMPORTANT: ROLE-BASED FETCH
     public List<Shipment> getAllShipments() {
-        return shipmentRepository.findAll();
+
+        String email = (String) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Admin sees all shipments
+        if (user.getRole().name().equals("ROLE_ADMIN")) {
+            return shipmentRepository.findAll();
+        }
+
+        // Other users see only their shipments
+        return shipmentRepository.findByUser(user);
     }
 
-    // ✅ FIX 2
+    // Assign driver manually
     public Shipment assignDriver(Long shipmentId, Long driverId) {
-        Shipment shipment = shipmentRepository.findById(shipmentId).orElseThrow();
-        Driver driver = driverRepository.findById(driverId).orElseThrow();
+
+        Shipment shipment = shipmentRepository.findById(shipmentId)
+                .orElseThrow(() -> new RuntimeException("Shipment not found"));
+
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new RuntimeException("Driver not found"));
 
         shipment.setDriver(driver);
         shipment.setStatus("ASSIGNED");
@@ -90,10 +128,11 @@ public class ShipmentService {
         return shipmentRepository.save(shipment);
     }
 
-    // ✅ FIX 3
+    // Mark shipment delivered
     public Shipment markDelivered(Long shipmentId) {
 
-        Shipment shipment = shipmentRepository.findById(shipmentId).orElseThrow();
+        Shipment shipment = shipmentRepository.findById(shipmentId)
+                .orElseThrow(() -> new RuntimeException("Shipment not found"));
 
         shipment.setStatus("DELIVERED");
 

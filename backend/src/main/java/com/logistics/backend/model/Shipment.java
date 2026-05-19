@@ -25,6 +25,7 @@ public class Shipment {
     @JoinColumn(name = "driver_id")
     private Driver driver;
 
+
     public Shipment() {
     }
 

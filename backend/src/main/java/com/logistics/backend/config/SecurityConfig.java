@@ -31,26 +31,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+                .cors(cors -> {
+                })
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/locations/**").permitAll()
 
-                        // USER
                         .requestMatchers("/shipments/**").hasAnyRole("USER", "ADMIN")
-
-                        // MANAGER
                         .requestMatchers("/drivers/**").hasAnyRole("MANAGER", "ADMIN")
-
-                        // ADMIN
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                        // fallback
                         .anyRequest().authenticated())
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(httpBasic -> httpBasic.disable())
-                .formLogin(form -> form.disable());
+
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -1,12 +1,7 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
@@ -40,7 +35,6 @@ function App() {
           }}
         >
           🚚 Logistics Dashboard
-
           {token && (
             <button
               onClick={() => {
@@ -72,9 +66,7 @@ function App() {
               {/* 🔐 Show only for ADMIN */}
               {role === "ROLE_ADMIN" && (
                 <Link to="/admin">
-                  <button
-                    style={{ padding: "8px 12px", marginLeft: "10px" }}
-                  >
+                  <button style={{ padding: "8px 12px", marginLeft: "10px" }}>
                     Admin
                   </button>
                 </Link>
@@ -84,15 +76,14 @@ function App() {
 
           {/* 🔥 Routes */}
           <Routes>
-            {/* ❌ Not logged in → only login */}
-            {!token && <Route path="*" element={<LoginPage />} />}
+            {/* Public */}
+            <Route path="/" element={<LoginPage />} />
 
-            {/* ✅ Logged in routes */}
+            {/* Protected */}
             {token && (
               <>
-                <Route path="/" element={<UserPage />} />
+                <Route path="/user" element={<UserPage />} />
 
-                {/* 🔐 Admin Protected Route */}
                 <Route
                   path="/admin"
                   element={
@@ -105,6 +96,9 @@ function App() {
                 />
               </>
             )}
+
+            {/* Fallback */}
+            <Route path="*" element={<LoginPage />} />
           </Routes>
         </div>
 

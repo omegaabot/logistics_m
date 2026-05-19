@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Shipment from "../components/Shipment/Shipment";
 
 function AdminPage() {
   useEffect(() => {
@@ -10,7 +11,14 @@ function AdminPage() {
     }
   }, []);
 
-  return <h2>Admin Dashboard</h2>;
+  return (
+    <div>
+      <h2>Admin Dashboard</h2>
+
+      {/* 🔥 Admin sees all shipments */}
+      <Shipment />
+    </div>
+  );
 }
 
 export default AdminPage;
