@@ -18,7 +18,7 @@ city_to_hub = {
     "Nagpur": "Mumbai",
     "Nashik": "Mumbai",
 
-    "New Delhi": "Delhi",
+    "Delhi": "Delhi",
     "Dwarka": "Delhi",
     "Rohini": "Delhi",
     "Saket": "Delhi",
