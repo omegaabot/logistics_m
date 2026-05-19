@@ -1,188 +1,196 @@
-# Logistics Management System - Project Folder Structure
+# 📁 Project Folder Structure
 
-## About the Project
-
-The **Logistics Management System** is a comprehensive web application designed for managing shipments, drivers, and routes in a logistics operation. It provides an integrated platform where:
-
-- **Users** can create and track shipments with real-time route optimization
-- **Admins** can manage drivers, locations, and monitor system operations
-- **Routing Service** calculates the most efficient delivery paths using Dijkstra's shortest path algorithm across multiple regional hubs
-
-### Key Features
-- **Real-time Route Optimization:** Automatically calculates the shortest and most cost-effective delivery routes
-- **Multi-Hub Network:** Supports routing across 6 regional hubs (Delhi, Mumbai, Bangalore, Chennai, Kolkata, Hyderabad) covering 24+ cities
-- **User Dashboard:** User-friendly interface for shipment creation and tracking
-- **Admin Panel:** Comprehensive management interface for drivers, locations, and system monitoring
-- **REST API:** Full-featured APIs for integration and programmatic access
-- **Microservices Architecture:** Modular design with separate services for frontend, backend, and route optimization
-
-### Technology Stack
-- **Frontend:** React 19.2.6 with React Router for navigation
-- **Backend:** Spring Boot 4.0.6 with Java 17 and PostgreSQL
-- **Routing Engine:** Python FastAPI with Dijkstra algorithm implementation
-- **Database:** PostgreSQL for persistent data storage
-- **Build Tools:** Maven (Java), npm (Node.js)
+This document provides a comprehensive view of the directory and file structure of the **Logistics Management System**, detailing the role, purpose, and architecture of each component within the workspace.
 
 ---
 
+## ℹ️ About the Project
+
+The **Logistics Management System** is a comprehensive web application designed for managing shipments, drivers, and routes in a logistics operation. It provides an integrated platform where:
+
+- **Users** can create and track shipments with real-time route optimization.
+- **Admins** can manage drivers, locations, and monitor system operations.
+- **Routing Service** calculates the most efficient delivery paths using Dijkstra's shortest path algorithm across multiple regional hubs.
+
+### Key Features
+
+- **Real-Time Route Optimization:** Automatically calculates the shortest and most cost-effective delivery routes.
+- **Multi-Hub Network:** Supports routing across 6 regional hubs (Delhi, Mumbai, Bangalore, Chennai, Kolkata, Hyderabad) covering 24+ cities.
+- **User Dashboard:** User-friendly interface for shipment creation and tracking.
+- **Admin Panel:** Comprehensive management interface for drivers, locations, and system monitoring.
+- **REST API:** Full-featured APIs for integration and programmatic access.
+- **Microservices Architecture:** Modular design with separate services for frontend, backend, and route optimization.
+
+### Technology Stack
+
+- **Frontend:** React 19.2.6 with React Router for navigation.
+- **Backend:** Spring Boot 4.0.6 with Java 17 and PostgreSQL.
+- **Routing Engine:** Python FastAPI with Dijkstra algorithm implementation.
+- **Database:** PostgreSQL for persistent data storage.
+- **Build Tools:** Maven (Java), npm (Node.js).
+
+---
+
+## 🌳 Interactive Visual Tree
+
 ```
-logistics_m/
-│
-├── .git/                                  # Git repository
-├── .gitignore                             # Git ignore rules
-├── README.md                              # Project documentation
-├── FOLDER_STRUCTURE.md                    # This file - Project structure documentation
-│
-├── backend/                               # Spring Boot Backend (Java)
-│   ├── .gitattributes                     # Git attributes for line endings
-│   ├── .gitignore                         # Backend-specific git ignore
-│   ├── .idea/                             # IntelliJ IDEA project files
-│   ├── mvnw                               # Maven Wrapper (Unix/Linux)
-│   ├── mvnw.cmd                           # Maven Wrapper (Windows)
-│   ├── pom.xml                            # Maven project configuration
-│   │
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   └── com/logistics/backend/
-│   │   │   │       ├── BackendApplication.java          # Spring Boot main entry point
-│   │   │   │       │
-│   │   │   │       ├── config/                           # Configuration classes
-│   │   │   │       │   ├── AppConfig.java                # Application configuration beans
-│   │   │   │       │   └── WebConfig.java                # Web/CORS configuration
-│   │   │   │       │
-│   │   │   │       ├── controller/                       # REST API Controllers
-│   │   │   │       │   ├── DriverController.java         # Driver management endpoints
-│   │   │   │       │   ├── LocationController.java       # Location/City endpoints
-│   │   │   │       │   ├── ShipmentController.java       # Shipment management endpoints
-│   │   │   │       │   ├── TestController.java           # Testing endpoints
-│   │   │   │       │   └── UserController.java           # User management endpoints
-│   │   │   │       │
-│   │   │   │       ├── model/                            # Entity/Data Models
-│   │   │   │       │   ├── City.java                     # City entity
-│   │   │   │       │   ├── Driver.java                   # Driver entity
-│   │   │   │       │   ├── Shipment.java                 # Shipment entity
-│   │   │   │       │   ├── State.java                    # State entity
-│   │   │   │       │   └── User.java                     # User entity
-│   │   │   │       │
-│   │   │   │       ├── repository/                       # Data Access Layer (Spring Data JPA)
-│   │   │   │       │   ├── CityRepository.java           # City data operations
-│   │   │   │       │   ├── DriverRepository.java         # Driver data operations
-│   │   │   │       │   ├── ShipmentRepository.java       # Shipment data operations
-│   │   │   │       │   ├── StateRepository.java          # State data operations
-│   │   │   │       │   └── UserRepository.java           # User data operations
-│   │   │   │       │
-│   │   │   │       └── service/                          # Business Logic Layer
-│   │   │   │           ├── DriverService.java            # Driver business logic
-│   │   │   │           ├── LocationService.java          # Location business logic
-│   │   │   │           ├── ShipmentService.java          # Shipment business logic
-│   │   │   │           └── UserService.java              # User business logic
-│   │   │   │
-│   │   │   └── resources/
-│   │   │       ├── application.properties                # Spring Boot configuration
-│   │   │       └── data.sql                              # Initial SQL data
-│   │   │
-│   │   └── test/
-│   │       └── java/
-│   │           └── com/logistics/backend/
-│   │               └── BackendApplicationTests.java      # Integration/Unit tests
-│   │
-│   └── target/                            # Maven build output (generated)
-│       ├── classes/                       # Compiled Java classes
-│       ├── generated-sources/             # Generated source files
-│       └── ...                            # Other Maven build artifacts
-│
-├── frontend/                              # React Frontend (JavaScript)
-│   ├── package.json                       # Node.js project configuration & dependencies
-│   ├── README.md                          # Frontend documentation
-│   │
-│   ├── public/                            # Static assets & HTML entry point
-│   │   ├── favicon.ico                    # Browser favicon
-│   │   ├── index.html                     # Main HTML file (React root)
-│   │   ├── logo192.png                    # Logo (192x192)
-│   │   ├── logo512.png                    # Logo (512x512)
-│   │   ├── manifest.json                  # PWA manifest
-│   │   └── robots.txt                     # SEO robots directive
-│   │
-│   ├── src/                               # React source code
-│   │   ├── App.css                        # Main App component styles
-│   │   ├── App.js                         # Main App component
-│   │   ├── App.test.js                    # App component tests
-│   │   ├── index.css                      # Global styles
-│   │   ├── index.js                       # React entry point
-│   │   ├── logo.svg                       # Logo SVG
-│   │   ├── reportWebVitals.js             # Performance monitoring
-│   │   ├── setupTests.js                  # Test configuration
-│   │   │
-│   │   ├── api/                           # API integration
-│   │   │   └── index.js                   # API client/axios configuration
-│   │   │
-│   │   ├── components/                    # Reusable React components
-│   │   │   ├── Admin/
-│   │   │   │   └── AdminPanel.js          # Admin panel component
-│   │   │   └── Shipment/
-│   │   │       └── Shipment.js            # Shipment component
-│   │   │
-│   │   ├── pages/                         # Page components (routes)
-│   │   │   ├── AdminPage.js               # Admin page
-│   │   │   └── UserPage.js                # User page
-│   │   │
-│   │   └── style/                         # Additional styles
-│   │       └── global.css                 # Global stylesheet
-│   │
-│   └── node_modules/                      # Dependencies (generated by npm)
-│
-└── routing_service/                       # FastAPI Python Microservice
-    ├── main.py                            # FastAPI application entry point
-    ├── dijkstra.py                        # Dijkstra algorithm implementation
-    ├── graph_data.py                      # Graph structure & city-hub mappings
-    ├── __pycache__/                       # Python cache (generated)
-    └── requirements.txt                   # Python dependencies (if present)
+📁 logistics/ (Root Workspace)
+├── 📂 .github/                   # GitHub Action workflows and upgrade hooks
+│   └── 📂 java-upgrade/          # Scripted procedures for Java upgrades
+│       ├── 📄 .gitignore
+│       └── 📂 hooks/scripts/
+│           ├── 📄 recordToolUse.ps1
+│           └── 📄 recordToolUse.sh
+├── 📂 .vscode/                   # VS Code configuration settings
+│   └── 📄 settings.json
+├── 📂 backend/                   # Java Spring Boot backend service
+│   ├── 📄 .gitattributes
+│   ├── 📄 .gitignore
+│   ├── 📄 HELP.md
+│   ├── 📄 mvnw
+│   ├── 📄 mvnw.cmd
+│   ├── 📄 pom.xml                # Project Object Model for Maven dependencies
+│   └── 📂 src/
+│       ├── 📂 main/
+│       │   ├── 📂 java/com/logistics/backend/
+│       │   │   ├── 📄 BackendApplication.java # Spring Boot main entry point
+│       │   │   ├── 📂 config/                 # Core configuration beans (Security, CORS, Web, App)
+│       │   │   │   ├── 📄 AppConfig.java
+│       │   │   │   ├── 📄 CorsConfig.java
+│       │   │   │   ├── 📄 SecurityConfig.java
+│       │   │   │   └── 📄 WebConfig.java
+│       │   │   ├── 📂 controller/             # REST API Endpoints / Request Controllers
+│       │   │   │   ├── 📄 AuthController.java
+│       │   │   │   ├── 📄 DriverController.java
+│       │   │   │   ├── 📄 LocationController.java
+│       │   │   │   ├── 📄 ShipmentController.java
+│       │   │   │   ├── 📄 TestController.java
+│       │   │   │   └── 📄 UserController.java
+│       │   │   ├── 📂 model/                  # Data Models / JPA Entities
+│       │   │   │   ├── 📄 City.java
+│       │   │   │   ├── 📄 Driver.java
+│       │   │   │   ├── 📄 Role.java
+│       │   │   │   ├── 📄 Shipment.java
+│       │   │   │   ├── 📄 State.java
+│       │   │   │   └── 📄 User.java
+│       │   │   ├── 📂 repository/             # Spring Data JPA Repository Interfaces
+│       │   │   │   ├── 📄 CityRepository.java
+│       │   │   │   ├── 📄 DriverRepository.java
+│       │   │   │   ├── 📄 ShipmentRepository.java
+│       │   │   │   ├── 📄 StateRepository.java
+│       │   │   │   └── 📄 UserRepository.java
+│       │   │   ├── 📂 security/               # Authentication & Authorization (JWT)
+│       │   │   │   ├── 📄 JwtFilter.java
+│       │   │   │   └── 📄 JwtUtil.java
+│       │   │   └── 📂 service/                # Business Logic layer
+│       │   │       ├── 📄 AuthService.java
+│       │   │       ├── 📄 DriverService.java
+│       │   │       ├── 📄 LocationService.java
+│       │   │       ├── 📄 ShipmentService.java
+│       │   │       └── 📄 UserService.java
+│       │   └── 📂 resources/
+│       │       ├── 📄 application.properties  # Global environment settings & DB connection
+│       │       └── 📄 data.sql                # SQL initialization queries & seed data
+│       └── 📂 test/java/com/logistics/backend/
+│           └── 📄 BackendApplicationTests.java # Application unit & integration tests
+├── 📂 frontend/                  # React dashboard application
+│   ├── 📄 .gitignore
+│   ├── 📄 package.json           # npm manifest with scripts & dependency definitions
+│   ├── 📄 package-lock.json
+│   ├── 📄 README.md
+│   ├── 📂 public/                 # Static assets directory
+│   │   ├── 📄 favicon.ico
+│   │   ├── 📄 index.html          # Webapp main HTML host page
+│   │   ├── 📄 logo192.png
+│   │   ├── 📄 logo512.png
+│   │   ├── 📄 manifest.json       # Progressive Web App (PWA) manifest
+│   │   └── 📄 robots.txt
+│   └── 📂 src/
+│       ├── 📄 App.js              # Layout manager & React component router
+│       ├── 📄 App.css
+│       ├── 📄 App.test.js
+│       ├── 📄 index.js            # Initial React DOM bootstrapping entry point
+│       ├── 📄 index.css
+│       ├── 📄 logo.svg
+│       ├── 📄 reportWebVitals.js
+│       ├── 📄 setupTests.js
+│       ├── 📂 api/                # HTTP API Client layer
+│       │   └── 📄 index.js
+│       ├── 📂 components/         # Reusable UI widgets
+│       │   ├── 📂 Admin/
+│       │   │   └── 📄 AdminPanel.js
+│       │   └── 📂 Shipment/
+│       │       └── 📄 Shipment.js
+│       ├── 📂 pages/              # Primary route view components
+│       │   ├── 📄 AdminPage.js
+│       │   ├── 📄 LoginPage.js
+│       │   └── 📄 UserPage.js
+│       └── 📂 style/              # Global application CSS variables & style systems
+│           └── 📄 global.css
+├── 📂 routing_service/           # Shortest-path routing service (FastAPI)
+│   ├── 📄 main.py                # Service entry point and endpoints
+│   ├── 📄 dijkstra.py            # Dijkstra's path calculation algorithm
+│   └── 📄 graph_data.py          # City nodes and distance weights database
+├── 📄 .gitignore
+├── 📄 backend.zip                # Backed-up archive of the Spring Boot application
+├── 📄 FOLDER_STRUCTURE.md        # Structure reference document (this file)
+└── 📄 README.md                  # Root execution and setup handbook
 ```
+
+---
 
 ## Service Architecture Overview
 
 ### Backend (Spring Boot)
-- **Port:** 9090
+- **Port:** `9090`
 - **Framework:** Spring Boot 4.0.6
 - **Language:** Java 17
-- **Database:** PostgreSQL (localhost:5432)
-- **Database Name:** logistics_db
+- **Database:** PostgreSQL (`localhost:5432`)
+- **Database Name:** `logistics_db`
 - **API Documentation:** Swagger UI at `/swagger-ui.html`
 
 ### Routing Service (FastAPI)
-- **Port:** 8001
+- **Port:** `8001`
 - **Framework:** FastAPI
 - **Language:** Python 3.x
-- **Key Dependencies:** uvicorn, pydantic, heapq
+- **Key Dependencies:** `uvicorn`, `pydantic`, `heapq`
 - **API Documentation:** Swagger UI at `/docs`
 
 ### Frontend (React)
-- **Port:** 3000
+- **Port:** `3000`
 - **Framework:** React 19.2.6
 - **Routing:** React Router 7.15.1
 - **HTTP Client:** Axios
 - **Notifications:** React Toastify
 
+---
+
 ## Key Files Summary
 
 | File | Purpose |
-|------|---------|
+| :--- | :--- |
 | `backend/pom.xml` | Maven dependency management and build configuration |
-| `backend/src/main/resources/application.properties` | Database & server configuration |
-| `frontend/package.json` | Node dependencies and npm scripts |
-| `routing_service/main.py` | FastAPI server and route calculation endpoint |
-| `routing_service/dijkstra.py` | Shortest path algorithm for route optimization |
-| `routing_service/graph_data.py` | Hub network graph and city-to-hub mapping |
+| `backend/src/main/resources/application.properties` | Database, port, & security settings configuration |
+| `frontend/package.json` | Node packages, scripts, & project manifest |
+| `routing_service/main.py` | FastAPI application server and path calculation endpoint |
+| `routing_service/dijkstra.py` | Implementation of Dijkstra's algorithm for route optimization |
+| `routing_service/graph_data.py` | Database mapping city node weights, hubs, and edges |
+
+---
 
 ## Directory Purposes
 
-- **config/** - Configuration beans and Spring configurations
-- **controller/** - REST API endpoints
-- **model/** - JPA entity classes
-- **repository/** - Spring Data JPA interfaces for database operations
-- **service/** - Business logic and service layer
-- **api/** - Frontend API client configuration
-- **components/** - Reusable React components
-- **pages/** - Page-level React components
-- **style/** - CSS stylesheets
+- **`config/`** - Configuration beans and Spring setup (Web, CORS, Security)
+- **`controller/`** - REST API endpoints handling incoming HTTP requests
+- **`model/`** - JPA Entity classes matching database tables
+- **`repository/`** - JPA interfaces implementing query methods for database access
+- **`service/`** - Service layer hosting business workflows and logic
+- **`api/`** - Frontend API endpoint configurations and instance clients
+- **`components/`** - Reusable visual widgets and layout modules in React
+- **`pages/`** - Layout route containers for user/admin entry views
+- **`style/`** - CSS modules containing variable custom stylings
+
+---
+
+> [!NOTE]
+> This structure documentation is kept synchronized with actual workspace scans. If files or configurations are modified, please ensure this reference document is updated.
