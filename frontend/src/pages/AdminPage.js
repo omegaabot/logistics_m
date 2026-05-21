@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Shipment from "../components/Shipment/Shipment";
+import AdminPanel from "../components/Admin/AdminPanel";
 
 function AdminPage() {
   useEffect(() => {
@@ -15,8 +15,7 @@ function AdminPage() {
     <div>
       <h2>Admin Dashboard</h2>
 
-      {/* 🔥 Admin sees all shipments */}
-      <Shipment />
+      <AdminPanel />
     </div>
   );
 }
