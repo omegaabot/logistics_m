@@ -33,7 +33,7 @@ Runs on `http://localhost:9090`
 Requires Python 3.
 ```bash
 cd routing_service
-pip install fastapi uvicorn pydantic
-uvicorn main:app --port 8001 --reload
+python -m pip install fastapi uvicorn pydantic
+python -m uvicorn main:app --port 8001 --reload
 ```
 Runs on `http://localhost:8001`
